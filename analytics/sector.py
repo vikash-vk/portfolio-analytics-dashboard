@@ -2,24 +2,40 @@
 # SECTOR
 # ============================================================
 
-import yfinance as yf
+import pandas as pd
 import numpy as np
+from functools import lru_cache
 
 
-# =========================
-# GET SECTOR
-# =========================
-def get_sector(stock):
+# ============================================================
+# LOAD SECTOR MAP
+# ============================================================
+
+@lru_cache(maxsize=1)
+def load_sector_map():
     try:
-        ticker = yf.Ticker(f"{stock}.NS")
-        return ticker.info.get("sector")
+        df = pd.read_csv("data/sector_map.csv")
+        df["SYMBOL"] = df["SYMBOL"].astype(str).str.strip().str.upper()
+        df["SECTOR"] = df["SECTOR"].astype(str).str.strip()
+        return dict(zip(df["SYMBOL"], df["SECTOR"]))
     except Exception:
-        return None
+        return {}
 
 
-# =========================
+# ============================================================
+# GET SECTOR
+# ============================================================
+
+def get_sector(stock):
+    symbol = str(stock).replace(".NS", "").strip().upper()
+    sector_map = load_sector_map()
+    return sector_map.get(symbol, None)
+
+
+# ============================================================
 # SECTOR BREAKDOWN
-# =========================
+# ============================================================
+
 def sector_breakdown(stocks, weights=None):
     if weights is None:
         weights = np.ones(len(stocks)) / len(stocks)

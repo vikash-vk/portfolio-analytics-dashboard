@@ -48,8 +48,8 @@ st.markdown(
     """
     <style>
 
-    html, body, [class*="css"] {
-        font-size: 18px;
+    html, body {
+        font-size: 16px;
     }
 
     .stApp {
@@ -117,12 +117,21 @@ st.markdown(
         color: #B7C2D2;
     }
 
+    .section-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #EAF2FF;
+    letter-spacing: 0.5px;
+    }
+
     .sidebar-header {
-    background: linear-gradient(135deg, rgba(18, 26, 45, 0.95), rgba(10, 15, 28, 0.95));
-    padding: 20px 18px;
-    border-radius: 16px;
-    margin-bottom: 18px;
-    border: 1px solid rgba(255,255,255,0.08);
+        background: linear-gradient(135deg, rgba(18, 26, 45, 0.95), rgba(10, 15, 28, 0.95));
+        padding: 20px 18px;
+        border-radius: 16px;
+        margin-bottom: 18px;
+        border: 1px solid rgba(255,255,255,0.08);
     }
 
     .sidebar-kicker {
@@ -156,42 +165,20 @@ st.markdown(
         border-left: 4px solid transparent;
     }
 
-    .metric-card.positive {
-        border-left: 4px solid #6DF7AD;
-    }
-
-    .metric-card.negative {
-        border-left: 4px solid #FF6B6B;
-    }
-
-    .metric-card.warning {
-        border-left: 4px solid #FFD166;
-    }
-
-    .metric-card.neutral {
-        border-left: 4px solid #7CCBFF;
-    }
+    .metric-card.positive { border-left: 4px solid #6DF7AD; }
+    .metric-card.negative { border-left: 4px solid #FF6B6B; }
+    .metric-card.warning { border-left: 4px solid #FFD166; }
+    .metric-card.neutral { border-left: 4px solid #7CCBFF; }
 
     .metric-value {
         font-size: 3rem;
         font-weight: 950;
     }
 
-    .metric-card.positive .metric-value {
-        color: #6DF7AD;
-    }
-
-    .metric-card.negative .metric-value {
-        color: #FF6B6B;
-    }
-
-    .metric-card.warning .metric-value {
-        color: #FFD166;
-    }
-
-    .metric-card.neutral .metric-value {
-        color: #7CCBFF;
-    }
+    .metric-card.positive .metric-value { color: #6DF7AD; }
+    .metric-card.negative .metric-value { color: #FF6B6B; }
+    .metric-card.warning .metric-value { color: #FFD166; }
+    .metric-card.neutral .metric-value { color: #7CCBFF; }
 
     .stTabs [data-baseweb="tab-list"] {
         gap: 0.4rem;
@@ -206,11 +193,6 @@ st.markdown(
         border-bottom: none;
         font-weight: 700;
         font-size: 1rem;
-        transition: all 0.2s ease;
-    }
-
-    .stTabs [data-baseweb="tab"]:hover {
-        background: rgba(255,255,255,0.08);
     }
 
     .stTabs [aria-selected="true"] {
@@ -254,7 +236,7 @@ def normalize_symbol(symbol):
 
 @st.cache_data(show_spinner=False)
 def load_stocks():
-    return pd.read_csv("nse_stocks.csv")
+    return pd.read_csv("data/nse_stocks.csv")
 
 
 @st.cache_data(show_spinner=False)
